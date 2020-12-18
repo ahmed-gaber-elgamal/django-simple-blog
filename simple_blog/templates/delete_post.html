@@ -3,16 +3,19 @@
     delete post
 {% endblock %}
 {% block content %}
-
-    <div class="jumbotron">
-        <h1>Delete post</h1>
-        <div class="form-group">
-            <form method="POST">
-                {% csrf_token %}
-                <strong>Are you sure?</strong>
-                <button class="btn btn-danger">Delete</button>
-            </form>
+    {% if user.is_authenticated and user == post.author %}
+        <div class="jumbotron">
+            <h1>Delete post</h1>
+            <div class="form-group">
+                <form method="POST">
+                    {% csrf_token %}
+                    <strong>Are you sure?</strong>
+                    <button class="btn btn-danger">Delete</button>
+                </form>
+            </div>
         </div>
-    </div>
+    {% else %}
+        <h1>You are not allowed here!</h1>
+    {% endif %}
 
 {% endblock %}
