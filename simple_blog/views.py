@@ -10,6 +10,12 @@ class HomeView(ListView):
     template_name = 'home.html'
     ordering = ['-created_at']
 
+    def get_context_data(self, *args, **kwargs):
+        categories = Category.objects.all()
+        context = super(HomeView, self).get_context_data(*args, **kwargs)
+        context['categories'] = categories
+        return context
+
 class ArticleDetailView(DetailView):
     model = Post
     template_name = 'article_details.html'
@@ -39,3 +45,8 @@ def CategoryView(request, cat):
     category_post = Post.objects.filter(category=cat)
     context = {'category_post': category_post, 'category': category}
     return render(request, 'category.html', context)
+
+
+class CategoryListView(ListView):
+    model = Category
+    template_name = 'categories.html'
