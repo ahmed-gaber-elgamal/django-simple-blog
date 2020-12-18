@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import *
 from .forms import *
@@ -19,7 +19,7 @@ class AddPostView(CreateView):
     model = Post
     form_class = PostForm
     template_name = 'add_post.html'
-    fields = '__all__'
+    # fields = '__all__'
 
 
 class UpdatePostView(UpdateView):
@@ -32,3 +32,10 @@ class DeletePostView(DeleteView):
     model = Post
     template_name = 'delete_post.html'
     success_url = reverse_lazy('home')
+
+
+def CategoryView(request, cat):
+    category = get_object_or_404(Category, id=cat)
+    category_post = Post.objects.filter(category=cat)
+    context = {'category_post': category_post, 'category': category}
+    return render(request, 'category.html', context)
