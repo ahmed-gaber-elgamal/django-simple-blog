@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block title %}
     {{post.title}}
 {% endblock %}
 {% block content %}
 
     <h1>{{ post.title }}</h1>
-    <small>By: {{ post.author }} , At: {{ post.created_at }}</small>
-    - <a href="{% url 'category' post.category.id %}">{{ post.category }}</a>
+    <a href="{% url 'category' post.category.id %}">{{ post.category }}</a>
     <br/>
     <hr>
     <br/>
@@ -40,6 +40,35 @@
         {% endif %}
 
     </form>
+    <div class="card mb-3" style="max-width: 540px;">
+      <div class="row no-gutters">
+        <div class="col-md-4">
+            {% if post.author.profile.profile_pic %}
+                <img src="{{ post.author.profile.profile_pic.url }}" class="card-img" alt="...">
+            {% else %}
+                <img src="{% static 'images/default.png' %}" class="card-img" alt="...">
+            {% endif %}
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <p class="small text-muted">
+                {% if post.author.profile.facebook_url %}
+                    <a href="{{ post.author.profile.facebook_url }}" >Facebook</a> |
+                {% endif %}
+                {% if post.author.profile.linkedin_url %}
+                    <a href="{{ post.author.profile.linkedin_url }}" >Linkedin</a> |
+                {% endif %}
+                {% if post.author.profile.github_url %}
+                    <a href="{{ post.author.profile.github_url }}" >Github</a>
+                {% endif %}
+            </p>
+            <h5 class="card-title">By: {{ post.author.first_name }} {{ post.author.last_name }}</h5>
+            <p class="card-text">{{ post.author.profile.bio }}</p>
+            <p class="card-text"><small class="text-muted">{{ post.created_at }}</small></p>
+          </div>
+        </div>
+      </div>
+    </div>
 
 
 {% endblock %}
