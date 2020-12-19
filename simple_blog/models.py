@@ -25,6 +25,7 @@ class Post(models.Model):
     body = RichTextField(blank=True, null=True)
     created_at = models.DateField(auto_now_add=True)
     likes = models.ManyToManyField(User, related_name='blog_posts')
+    image = models.ImageField(null=True, blank=True, upload_to='images/')
 
     @property
     def total_likes(self):
