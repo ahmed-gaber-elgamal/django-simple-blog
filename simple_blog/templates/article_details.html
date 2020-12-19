@@ -52,6 +52,7 @@
         <div class="col-md-8">
           <div class="card-body">
             <p class="small text-muted">
+                <a href="{% url 'profile-page' post.author.profile.id %}" >Author Profile</a> |
                 {% if post.author.profile.facebook_url %}
                     <a href="{{ post.author.profile.facebook_url }}" >Facebook</a> |
                 {% endif %}
