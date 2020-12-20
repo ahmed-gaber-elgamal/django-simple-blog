@@ -31,6 +31,7 @@ class ArticleDetailView(DetailView):
         context['liked'] = liked
         return context
 
+
 class AddPostView(CreateView):
     model = Post
     form_class = PostForm
@@ -72,3 +73,15 @@ def LikeView(request, pk):
         post.likes.add(request.user)
         liked = True
     return HttpResponseRedirect(reverse_lazy('article-detail', args=[str(pk)]))
+
+
+class AddCommentView(CreateView):
+    model = Comment
+    form_class = AddCommentForm
+    template_name = 'add_comment.html'
+    success_url = reverse_lazy('home')
+
+    def form_valid(self, form):
+        form.instance.post_id = self.kwargs['pk']
+        form.instance.user = self.request.user
+        return super().form_valid(form)

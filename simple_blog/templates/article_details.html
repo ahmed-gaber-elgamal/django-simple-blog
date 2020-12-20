@@ -40,6 +40,8 @@
         {% endif %}
 
     </form>
+    <hr>
+
     <div class="card mb-3" style="max-width: 540px;">
       <div class="row no-gutters">
         <div class="col-md-4">
@@ -70,6 +72,25 @@
         </div>
       </div>
     </div>
+
+    <br/><br/>
+
+    <h2>Comments...</h2>
+        <a href="{% url 'add-comment' post.pk %}">Add Comment</a>
+        <br/>
+        {% if not post.comments.all %}
+            No Comments Yet!
+        {% else %}
+            {% for comment in post.comments.all %}
+                <strong>{{ comment.user }} - {{ comment.date_added }}</strong>
+                <br/>
+                {{ comment.body }}
+                <br/>
+            {% endfor %}
+                <br/>
+        {% endif %}
+    <br/><br/>
+
 
 
 {% endblock %}
