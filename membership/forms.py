@@ -31,6 +31,22 @@ class EditProfileForm(UserChangeForm):
         fields = ('username', 'first_name', 'last_name', 'email', 'password')
 
 
+class CreateProfilePageForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ('bio', 'profile_pic', 'facebook_url', 'linkedin_url', 'github_url')
+        widgets = {
+            'bio': forms.Textarea(attrs={'class': 'form-control'}),
+            'facebook_url': forms.TextInput(attrs={'class': 'form-control'}),
+            'linkedin_url': forms.TextInput(attrs={'class': 'form-control'}),
+            'github_url': forms.TextInput(attrs={'class': 'form-control'}),
+            # 'profile_pic': forms.FileInput(attrs={'class': 'form-control'}),
+
+
+        }
+
+
+
 class EditProfilePageForm(forms.ModelForm):
     class Meta:
         model = Profile

@@ -21,6 +21,15 @@ class UserEditView(generic.UpdateView):
         return self.request.user
 
 
+class CreateProfilePageView(generic.CreateView):
+    form_class = CreateProfilePageForm
+    model = Profile
+    template_name = 'registration/create_profile_page.html'
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
 class EditProfilePageView(generic.UpdateView):
     form_class = EditProfilePageForm
     model = Profile
