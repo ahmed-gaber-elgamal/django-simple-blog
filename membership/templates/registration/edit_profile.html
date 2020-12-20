@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 {% block title%}
-    edit profile
+    Update Settings
 {% endblock %}
 {% block content %}
     {% if user.is_authenticated %}
         <div class="jumbotron">
-            <h1>Update profile</h1>
+            <h1>Update Settings</h1>
             {{ user.profile.bio }}
             <br/><br/>
             <div class="form-group">
